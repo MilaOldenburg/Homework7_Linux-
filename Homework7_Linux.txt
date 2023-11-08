@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Путь к рабочей папке
+work_dir="$HOME/YOURNAME"
+
+# Создание файлов с порядковыми номерами и датой
+for i in {1..10}; do
+    filename="$work_dir/$i.`date +\%Y.\%m.\%d`"
+    touch "$filename"
+done
+
+# Создание подпапки "hwarchive", если её нет
+archive_dir="$work_dir/hwarchive"
+mkdir -p "$archive_dir"
+
+# Архивация файлов и перемещение в подпапку "hwarchive"
+tar -czf "$archive_dir/files_`date +\%Y.\%m.\%d_\%H.\%M.\%S`.tar.gz" "$work_dir"/*.2023.04.23
+
+
+crontab -e
+*/15 * * * * /home/YOURNAME/taskYOURNAME.sh
